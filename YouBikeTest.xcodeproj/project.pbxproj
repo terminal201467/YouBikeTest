@@ -14,6 +14,11 @@
 		97FD073A2A6AD49D00A64808 /* YouBikeTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07392A6AD49D00A64808 /* YouBikeTestTests.swift */; };
 		97FD07442A6AD49D00A64808 /* YouBikeTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07432A6AD49D00A64808 /* YouBikeTestUITests.swift */; };
 		97FD07462A6AD49D00A64808 /* YouBikeTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07452A6AD49D00A64808 /* YouBikeTestUITestsLaunchTests.swift */; };
+		97FD07542A6AD61900A64808 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD07532A6AD61900A64808 /* RxCocoa */; };
+		97FD07562A6AD61900A64808 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD07552A6AD61900A64808 /* RxRelay */; };
+		97FD07582A6AD61900A64808 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD07572A6AD61900A64808 /* RxSwift */; };
+		97FD075A2A6AD61900A64808 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD07592A6AD61900A64808 /* RxTest */; };
+		97FD075D2A6AD69800A64808 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD075C2A6AD69800A64808 /* Alamofire */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +56,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97FD075D2A6AD69800A64808 /* Alamofire in Frameworks */,
+				97FD075A2A6AD61900A64808 /* RxTest in Frameworks */,
+				97FD07582A6AD61900A64808 /* RxSwift in Frameworks */,
+				97FD07562A6AD61900A64808 /* RxRelay in Frameworks */,
+				97FD07542A6AD61900A64808 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +153,13 @@
 			dependencies = (
 			);
 			name = YouBikeTest;
+			packageProductDependencies = (
+				97FD07532A6AD61900A64808 /* RxCocoa */,
+				97FD07552A6AD61900A64808 /* RxRelay */,
+				97FD07572A6AD61900A64808 /* RxSwift */,
+				97FD07592A6AD61900A64808 /* RxTest */,
+				97FD075C2A6AD69800A64808 /* Alamofire */,
+			);
 			productName = YouBikeTest;
 			productReference = 97FD07252A6AD49A00A64808 /* YouBikeTest.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +232,10 @@
 				Base,
 			);
 			mainGroup = 97FD071C2A6AD49A00A64808;
+			packageReferences = (
+				97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				97FD075B2A6AD69800A64808 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 97FD07262A6AD49A00A64808 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -583,6 +604,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		97FD075B2A6AD69800A64808 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		97FD07532A6AD61900A64808 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		97FD07552A6AD61900A64808 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		97FD07572A6AD61900A64808 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		97FD07592A6AD61900A64808 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		97FD075C2A6AD69800A64808 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD075B2A6AD69800A64808 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 97FD071D2A6AD49A00A64808 /* Project object */;
 }

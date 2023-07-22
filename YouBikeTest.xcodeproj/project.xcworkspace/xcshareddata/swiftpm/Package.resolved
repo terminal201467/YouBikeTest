@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Alamofire/Alamofire",
       "state" : {
-        "revision" : "bc268c28fb170f494de9e9927c371b8342979ece",
-        "version" : "5.7.1"
+        "branch" : "master",
+        "revision" : "4abb04eb7aa7c73ea22ca8d02567fb652a7ad629"
       }
     },
     {

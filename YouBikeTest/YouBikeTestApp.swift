@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct YouBikeTestApp: App {
+    
+    @State var searchText: String = "Initail Text"
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack {
+                ContentView(searchText: $searchText)
+            }
         }
     }
 }

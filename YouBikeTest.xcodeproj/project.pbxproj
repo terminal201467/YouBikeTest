@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		97977C632A6BAC1F00BC89E0 /* ListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C622A6BAC1F00BC89E0 /* ListContentView.swift */; };
+		97977C652A6BACAB00BC89E0 /* BikeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C642A6BACAB00BC89E0 /* BikeStation.swift */; };
+		97977C672A6BC2D400BC89E0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C662A6BC2D400BC89E0 /* ViewModel.swift */; };
+		97977C692A6E030000BC89E0 /* AlamoFireInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C682A6E030000BC89E0 /* AlamoFireInterface.swift */; };
 		97FD07292A6AD49A00A64808 /* YouBikeTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07282A6AD49A00A64808 /* YouBikeTestApp.swift */; };
 		97FD072B2A6AD49B00A64808 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD072A2A6AD49B00A64808 /* ContentView.swift */; };
 		97FD072D2A6AD49C00A64808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FD072C2A6AD49C00A64808 /* Assets.xcassets */; };
@@ -39,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		97977C622A6BAC1F00BC89E0 /* ListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentView.swift; sourceTree = "<group>"; };
+		97977C642A6BACAB00BC89E0 /* BikeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStation.swift; sourceTree = "<group>"; };
+		97977C662A6BC2D400BC89E0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		97977C682A6E030000BC89E0 /* AlamoFireInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamoFireInterface.swift; sourceTree = "<group>"; };
 		97FD07252A6AD49A00A64808 /* YouBikeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouBikeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97FD07282A6AD49A00A64808 /* YouBikeTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouBikeTestApp.swift; sourceTree = "<group>"; };
 		97FD072A2A6AD49B00A64808 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,8 +115,12 @@
 			children = (
 				97FD07282A6AD49A00A64808 /* YouBikeTestApp.swift */,
 				97FD072A2A6AD49B00A64808 /* ContentView.swift */,
+				97977C642A6BACAB00BC89E0 /* BikeStation.swift */,
 				97FD07712A6B688000A64808 /* UIColor.swift */,
+				97977C662A6BC2D400BC89E0 /* ViewModel.swift */,
+				97977C682A6E030000BC89E0 /* AlamoFireInterface.swift */,
 				97FD072C2A6AD49C00A64808 /* Assets.xcassets */,
+				97977C622A6BAC1F00BC89E0 /* ListContentView.swift */,
 				97FD072E2A6AD49C00A64808 /* Preview Content */,
 			);
 			path = YouBikeTest;
@@ -288,6 +300,10 @@
 			files = (
 				97FD072B2A6AD49B00A64808 /* ContentView.swift in Sources */,
 				97FD07722A6B688000A64808 /* UIColor.swift in Sources */,
+				97977C692A6E030000BC89E0 /* AlamoFireInterface.swift in Sources */,
+				97977C652A6BACAB00BC89E0 /* BikeStation.swift in Sources */,
+				97977C632A6BAC1F00BC89E0 /* ListContentView.swift in Sources */,
+				97977C672A6BC2D400BC89E0 /* ViewModel.swift in Sources */,
 				97FD07292A6AD49A00A64808 /* YouBikeTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

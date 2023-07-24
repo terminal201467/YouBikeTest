@@ -24,7 +24,7 @@ enum YouBikeColor: Int {
 
 struct ContentView: View {
     
-    @Binding var searchText: String
+    @StateObject var viewModel = ViewModel()
     
     var body: some View {
         NavigationStack {
@@ -38,7 +38,7 @@ struct ContentView: View {
                     Spacer()
                 }
                 ZStack {
-                    TextField("搜尋站點", text: $searchText)
+                    TextField("搜尋站點", text: $viewModel.searchText)
                         .padding(8)
                         .padding(.horizontal, 16)
                         .background(Color(YouBikeColor.listGrayColor.color))
@@ -59,8 +59,9 @@ struct ContentView: View {
                 }
                 List {
                     Section {
-                        //單數的Cell白色
-                        //雙數的Cell灰色
+                        ForEach($viewModel.storeStation, id: \.self) { info in
+                            ListContentView(city: info.city, area: info.area, station: info.station)
+                        }
                     } header: {
                         GeometryReader { geometry in
                             HStack(spacing: geometry.size.width * 0.15) {
@@ -90,6 +91,12 @@ struct ContentView: View {
                 .listStyle(.grouped)
                 .cornerRadius(8)
                 .headerProminence(.increased)
+                .onAppear {
+                    viewModel.getBikeStationInfoRawData()
+                }
+                .onReceive(viewModel.youBikeDataFuture) { info in
+                    print("info:\(info)")
+                }
             }
         }
         .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
@@ -115,9 +122,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let previewBinding = Binding<String>.constant("")
         NavigationStack {
-            ContentView(searchText: previewBinding)
+            ContentView()
         }
     }
 }

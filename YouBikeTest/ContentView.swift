@@ -24,7 +24,7 @@ enum YouBikeColor: Int {
 
 struct ContentView: View {
     
-    @StateObject var viewModel = ViewModel()
+    @ObservedObject var viewModel = ViewModel()
     
     var body: some View {
         NavigationStack {
@@ -87,15 +87,13 @@ struct ContentView: View {
                         }
                     }
                     .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
                 }
                 .listStyle(.grouped)
                 .cornerRadius(8)
                 .headerProminence(.increased)
                 .onAppear {
                     viewModel.getBikeStationInfoRawData()
-                }
-                .onReceive(viewModel.youBikeDataFuture) { info in
-                    print("info:\(info)")
                 }
             }
         }

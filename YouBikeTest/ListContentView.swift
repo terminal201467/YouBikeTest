@@ -30,12 +30,12 @@ struct ListContentView: View {
                         .foregroundColor(.black)
                         .font(.system(size: 16))
                         .fontWeight(.regular)
-                        .padding()
                         .lineLimit(0)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height)
                 .background(Color(.white))
                 .listRowInsets(EdgeInsets())
+                
             }
             .padding()
     }

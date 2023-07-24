@@ -21,7 +21,6 @@ class AlamoFireInterface {
                         let jsonData = try JSONSerialization.data(withJSONObject: data)
                         let decoder = JSONDecoder()
                         let bikeStation = try decoder.decode([BikeStation].self, from: jsonData)
-                        // 解碼成功，回傳解析後的BikeStation物件
                         completion(bikeStation)
                     } catch {
                         print("Error decoding JSON: \(error)")

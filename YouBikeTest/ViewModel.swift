@@ -11,6 +11,7 @@ import CoreLocation
 import RxSwift
 import RxCocoa
 import RxRelay
+import SwiftUI
 
 class ViewModel: ObservableObject {
     
@@ -21,15 +22,22 @@ class ViewModel: ObservableObject {
     var searchText: String = ""
     
     //MARK: -Arrays
-    private var storeBikeStation: [BikeStation] = []
+    private var storeBikeStation: [BikeStation] = [] {
+        didSet {
+            setStationInfo { info in
+                self.storeStation = info
+            }
+        }
+    }
     
-    var storeStation: [StationInfo] = []
+    @Published var storeStation: [StationInfo] = [] {
+        didSet {
+            print("storeStation:\(storeStation)")
+        }
+    }
     
     //MARK: -Events
     private let youBikeDataSubject = PublishSubject<[StationInfo]>()
-    
-    //inputText filter事件流
-    
     
     //MARK: -Subscribe
     var youBikeDataObservable: Observable<[StationInfo]> {
@@ -50,7 +58,7 @@ class ViewModel: ObservableObject {
                 return
             }
             
-            if let city = placemark.locality {
+            if let city = placemark.subAdministrativeArea {
                 print("City: \(city)")
                 completion(city)
             } else {
@@ -61,27 +69,32 @@ class ViewModel: ObservableObject {
     
     func getBikeStationInfoRawData() {
         alamoFireInterface.getData { stationInfo in
-            print("stationInfo:\(stationInfo)")
             self.storeBikeStation = stationInfo
         }
     }
     
-    private func setStationInfo(completion: @escaping ([StationInfo]) -> Void) {
+    func setStationInfo(completion: @escaping ([StationInfo]) -> Void) {
         if storeBikeStation.isEmpty {
             print("storeBikeStation是空的！")
-            self.getBikeStationInfoRawData()
+            do {
+                try self.getBikeStationInfoRawData()
+            } catch {
+                print("Error getting bike station info: \(error)")
+                completion([])
+                return
+            }
         } else {
-            storeBikeStation.map { stationInfo in
+            storeBikeStation.forEach { stationInfo in
                 self.getCityFromCoordinates(latitude: stationInfo.lat, longitude: stationInfo.lng) { city in
                     let info = StationInfo(city: city, area: stationInfo.sarea, station: stationInfo.sna)
                     self.storeStation.append(info)
-                    print("storeStation的內容：\(self.storeStation)")
                     self.youBikeDataSubject.onNext(self.storeStation)
                     completion(self.storeStation)
                 }
             }
         }
     }
+
     
     var youBikeDataFuture: Future<[StationInfo], Never> {
         Future { promise in

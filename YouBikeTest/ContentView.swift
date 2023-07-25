@@ -26,91 +26,137 @@ struct ContentView: View {
     
     @ObservedObject var viewModel = ViewModel()
     
+    @State private var isMenuOn: Bool = false
+    
+    @State private var selectedCell: String? = nil
+    
+    var menu: [String] = ["使用說明", "收費方式","站點資訊","最新消息","活動專區"]
+    
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 16) {
-                HStack {
-                    Text("站點資訊")
-                        .font(.system(size: 18))
-                        .fontWeight(.bold)
-                        .foregroundColor(Color(YouBikeColor.mainColor.color))
-                        .frame(alignment: .leading)
-                    Spacer()
-                }
-                ZStack {
-                    TextField("搜尋站點", text: $viewModel.searchText)
-                        .padding(8)
-                        .padding(.horizontal, 16)
-                        .background(Color(YouBikeColor.listGrayColor.color))
-                        .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
-                        .cornerRadius(8)
-                        .onTapGesture {
-                            
+        GeometryReader { geometry in
+            ZStack {
+                NavigationStack {
+                    VStack(spacing: 16) {
+                        HStack {
+                            Text("站點資訊")
+                                .font(.system(size: 18))
+                                .fontWeight(.bold)
+                                .foregroundColor(Color(YouBikeColor.mainColor.color))
+                                .frame(alignment: .leading)
+                            Spacer()
                         }
-                    HStack {
-                        Spacer()
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
-                            .onTapGesture {
-                                // 在這裡處理右側圖片的點擊事件
-                                print("Right View Tapped!")
-                            }
-                    }.padding(.trailing)
-                }
-                List {
-                    Section {
-                        ForEach($viewModel.storeStation, id: \.self) { info in
-                            ListContentView(city: info.city, area: info.area, station: info.station)
-                        }
-                    } header: {
-                        GeometryReader { geometry in
-                            HStack(spacing: geometry.size.width * 0.15) {
-                                HStack(spacing: geometry.size.width * 0.15) {
-                                    Text("縣市")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 16))
-                                        .fontWeight(.semibold)
-                                    Text("區域")
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 16))
-                                        .fontWeight(.semibold)
+                        ZStack {
+                            TextField("搜尋站點", text: $viewModel.searchText)
+                                .padding(8)
+                                .padding(.horizontal, 16)
+                                .background(Color(YouBikeColor.listGrayColor.color))
+                                .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
+                                .cornerRadius(8)
+                                .onTapGesture {
+                                    
                                 }
-                                Text("站點名稱")
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 16))
-                                    .fontWeight(.semibold)
-                                    .padding()
+                            HStack {
+                                Spacer()
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
+                                    .onTapGesture {
+                                        print("Right View Tapped!")
+                                    }
+                            }.padding(.trailing)
+                        }
+                        List {
+                            Section {
+                                ForEach($viewModel.storeStation, id: \.self) { info in
+                                    ListContentView(city: info.city, area: info.area, station: info.station)
+                                }
+                            } header: {
+                                GeometryReader { geometry in
+                                    HStack(spacing: geometry.size.width * 0.15) {
+                                        HStack(spacing: geometry.size.width * 0.15) {
+                                            Text("縣市")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.semibold)
+                                            Text("區域")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.semibold)
+                                        }
+                                        Text("站點名稱")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 16))
+                                            .fontWeight(.semibold)
+                                            .padding()
+                                    }
+                                    .frame(width: geometry.size.width, height: 60)
+                                    .background(Color(YouBikeColor.mainColor.color))
+                                    .listRowInsets(EdgeInsets())
+                                }
                             }
-                            .frame(width: geometry.size.width, height: 60)
-                            .background(Color(YouBikeColor.mainColor.color))
                             .listRowInsets(EdgeInsets())
+                            .listRowSeparator(.hidden)
+                        }
+                        .listStyle(.grouped)
+                        .cornerRadius(8)
+                        .headerProminence(.increased)
+                        .onAppear {
+                            viewModel.getBikeStationInfoRawData()
                         }
                     }
-                    .listRowInsets(EdgeInsets())
-                    .listRowSeparator(.hidden)
                 }
-                .listStyle(.grouped)
-                .cornerRadius(8)
-                .headerProminence(.increased)
-                .onAppear {
-                    viewModel.getBikeStationInfoRawData()
+                .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
+                NavigationStack {
+                    List {
+                        Section {
+                            ForEach(menu, id: \.self) { text in
+                                Text(text)
+                                    .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
+                                    .foregroundColor(
+                                        selectedCell == text ? Color(YouBikeColor.listSelectedColor.color) : Color(.black)
+                                    )
+                                    .onTapGesture {
+                                        selectedCell = text
+                                    }
+                            }
+                        } footer: {
+                            Spacer()
+                            Button(action: {
+                                print("登入Action")
+                            }) {
+                                Text("登入")
+                                    .foregroundColor(Color(YouBikeColor.mainColor.color))
+                                    .padding()
+                                    .background(.white)
+                                    .cornerRadius(100)
+                            }
+                            .frame(height: geometry.size.height)
+                        }
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                    }
+                    .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
+                    .listStyle(.plain)
+                    .opacity(isMenuOn ? 1.0 : 0.0)
+                    .padding(EdgeInsets())
                 }
             }
-        }
-        .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
-        .toolbar {
-            ToolbarItem(placement:.navigationBarLeading) {
-                Image("logo")
-                    .renderingMode(.original)
-                    .padding()
-            }
-            ToolbarItem {
-                Button {
-                    print("轉換下面的View內容")
-                } label: {
-                    Image("menu")
+            .toolbar {
+                ToolbarItem(placement:.navigationBarLeading) {
+                    Image("logo")
                         .renderingMode(.original)
                         .padding()
+                }
+                ToolbarItem {
+                    Button {
+                        self.isMenuOn.toggle()
+                        if isMenuOn {
+                            selectedCell = nil
+                        }
+                    } label: {
+                        Image(isMenuOn ? "close" : "menu")
+                            .renderingMode(.original)
+                            .padding()
+                    }
                 }
             }
         }

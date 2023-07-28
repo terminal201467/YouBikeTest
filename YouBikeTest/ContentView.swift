@@ -66,22 +66,25 @@ struct ContentView: View {
                         }
                         List {
                             Section {
-                                ForEach($viewModel.storeStation, id: \.self) { info in
+                                Spacer()
+                                ForEach($viewModel.storeStation.indices, id: \.self) { index in
+                                    let info = $viewModel.storeStation[index]
                                     ListContentView(city: info.city, area: info.area, station: info.station)
+                                        .listRowBackground(index % 2 == 0 ? Color.white : Color(YouBikeColor.listGrayColor.color))
                                 }
                             } header: {
                                 GeometryReader { geometry in
                                     HStack(spacing: geometry.size.width * 0.15) {
-                                        HStack(spacing: geometry.size.width * 0.15) {
-                                            Text("縣市")
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 16))
-                                                .fontWeight(.semibold)
-                                            Text("區域")
-                                                .foregroundColor(.white)
-                                                .font(.system(size: 16))
-                                                .fontWeight(.semibold)
-                                        }
+                                        Text("縣市")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 16))
+                                            .fontWeight(.semibold)
+                                            .padding()
+                                        Text("區域")
+                                            .foregroundColor(.white)
+                                            .font(.system(size: 16))
+                                            .fontWeight(.semibold)
+                                            .padding()
                                         Text("站點名稱")
                                             .foregroundColor(.white)
                                             .font(.system(size: 16))
@@ -90,14 +93,17 @@ struct ContentView: View {
                                     }
                                     .frame(width: geometry.size.width, height: 60)
                                     .background(Color(YouBikeColor.mainColor.color))
-                                    .listRowInsets(EdgeInsets())
+                                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                                 }
                             }
                             .listRowInsets(EdgeInsets())
                             .listRowSeparator(.hidden)
+                            .headerProminence(.increased)
+                            .background(Color(.white))
                         }
                         .listStyle(.grouped)
                         .cornerRadius(8)
+                        .backgroundStyle(Color.white)
                         .headerProminence(.increased)
                         .onAppear {
                             viewModel.getBikeStationInfoRawData()
@@ -106,38 +112,50 @@ struct ContentView: View {
                 }
                 .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
                 NavigationStack {
+                    Spacer()
                     List {
                         Section {
                             ForEach(menu, id: \.self) { text in
                                 Text(text)
                                     .listRowInsets(EdgeInsets(top: 5, leading: 20, bottom: 5, trailing: 20))
                                     .foregroundColor(
-                                        selectedCell == text ? Color(YouBikeColor.listSelectedColor.color) : Color(.black)
+                                        selectedCell == text ? Color(YouBikeColor.listSelectedColor.color) : Color(.white)
                                     )
                                     .onTapGesture {
                                         selectedCell = text
                                     }
                             }
+                            .padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
                         } footer: {
                             Spacer()
-                            Button(action: {
-                                print("登入Action")
-                            }) {
-                                Text("登入")
-                                    .foregroundColor(Color(YouBikeColor.mainColor.color))
-                                    .padding()
-                                    .background(.white)
-                                    .cornerRadius(100)
+                            Spacer()
+                            HStack {
+                                Button(action: {
+                                    print("登入Action")
+                                }) {
+                                    Text("登入")
+                                        .foregroundColor(Color(YouBikeColor.mainColor.color))
+                                        .padding(.init(top: 16, leading: 16, bottom: 16, trailing: 16))
+                                        .background(.white)
+                                        .cornerRadius(100)
+                                }
+                                .frame(width: 80)
+                                .padding(.init(top: 16, leading: 32, bottom: 16, trailing: 16))
+                                Spacer()
+                                Spacer()
                             }
-                            .frame(height: geometry.size.height)
+                            .opacity(isMenuOn ? 1.0 : 0.0)
+                            .background(Color(YouBikeColor.mainColor.color))
+                            Spacer()
                         }
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
+                        .listRowBackground(Color(YouBikeColor.mainColor.color))
+                        .frame(height: 70)
                     }
-                    .padding(EdgeInsets.init(top: 32, leading: 32, bottom: 32, trailing: 32))
+                    
                     .listStyle(.plain)
                     .opacity(isMenuOn ? 1.0 : 0.0)
-                    .padding(EdgeInsets())
                 }
             }
             .toolbar {

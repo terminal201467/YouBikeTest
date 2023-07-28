@@ -19,7 +19,11 @@ class ViewModel: ObservableObject {
     
     private let alamoFireInterface = AlamoFireInterface()
     
-    var searchText: String = ""
+    var searchText: String = "" {
+        didSet {
+            self.searchStationInfos(with: searchText)
+        }
+    }
     
     //MARK: -Arrays
     private var storeBikeStation: [BikeStation] = [] {
@@ -30,19 +34,27 @@ class ViewModel: ObservableObject {
         }
     }
     
+    private var originalStationInfos: [StationInfo] = []
+    
+    private var filterStationsInfos: [String] = []
+    
     @Published var storeStation: [StationInfo] = [] {
         didSet {
             print("storeStation:\(storeStation)")
         }
     }
     
+    @Published private var filterStationInfo: [String] = []
+    
     //MARK: -Events
     private let youBikeDataSubject = PublishSubject<[StationInfo]>()
+    
+    private let youBikeStationDataSubject = PublishSubject<[String]>()
     
     //MARK: -Subscribe
     var youBikeDataObservable: Observable<[StationInfo]> {
             return youBikeDataSubject.asObservable()
-        }
+    }
     
     private func getCityFromCoordinates(latitude: Double, longitude: Double, completion: @escaping (String) -> Void) {
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -88,21 +100,32 @@ class ViewModel: ObservableObject {
                 self.getCityFromCoordinates(latitude: stationInfo.lat, longitude: stationInfo.lng) { city in
                     let info = StationInfo(city: city, area: stationInfo.sarea, station: stationInfo.sna)
                     self.storeStation.append(info)
+                    self.originalStationInfos.append(info)
                     self.youBikeDataSubject.onNext(self.storeStation)
                     completion(self.storeStation)
                 }
             }
         }
     }
-
     
-    var youBikeDataFuture: Future<[StationInfo], Never> {
-        Future { promise in
-            self.youBikeDataSubject
-                .subscribe(onNext: { stationInfos in
-                    promise(.success(stationInfos))
-                })
-                .disposed(by: self.disposeBag)
+    //MARK: -搜尋功能
+    private func searchStationInfos(with keyword: String) {
+        if keyword.isEmpty {
+            youBikeDataSubject.onNext(storeStation)
+        } else {
+            let filteredStationInfos = storeStation.filter { $0.station.contains(keyword) }
+            print("filteredStationInfos:\(filteredStationInfos)")
+            youBikeDataSubject.onNext(filteredStationInfos)
+        }
+    }
+    
+    //搜尋站名
+    private func searchStation(with keyword: String) {
+        if keyword.isEmpty {
+            youBikeStationDataSubject.onNext(filterStationInfo)
+        } else {
+            let filteredStationInfos = storeStation.filter { $0.station.contains(keyword) }
+            youBikeStationDataSubject.onNext(filteredStationInfos.map{$0.station})
         }
     }
 }

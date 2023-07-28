@@ -14,30 +14,16 @@ struct ListContentView: View {
     @Binding var station: String
     
     var body: some View {
-            GeometryReader { geometry in
-                HStack(spacing: geometry.size.width * 0.15) {
-                    HStack(spacing: geometry.size.width * 0.15) {
-                        Text(city)
-                            .foregroundColor(.black)
-                            .font(.system(size: 16))
-                            .fontWeight(.regular)
-                        Text(area)
-                            .foregroundColor(.black)
-                            .font(.system(size: 16))
-                            .fontWeight(.regular)
-                    }
-                    Text(station)
-                        .foregroundColor(.black)
-                        .font(.system(size: 16))
-                        .fontWeight(.regular)
-                        .lineLimit(0)
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height)
-                .background(Color(.white))
-                .listRowInsets(EdgeInsets())
-                
+        VStack {
+            HStack {
+                Text("\(city)")
+                    .padding()
+                Text("\(area)")
+                    .padding()
+                Text("\(station)")
+                    .padding()
             }
-            .padding()
+        }
     }
 }
 

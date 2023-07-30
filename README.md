@@ -10,12 +10,12 @@
 
 ### Menu菜單欄
 
-
+![Menu菜單欄](https://github.com/terminal201467/YouBikeTest/blob/main/GIF/getJson.GIF)
 
 ### ListPage站點資訊
 
-
+![ListPage站點資訊](https://github.com/terminal201467/YouBikeTest/blob/main/GIF/getJson.GIF)
 
 ### SearchingFilter搜尋功能
 
-
+![ListPage站點資訊](https://github.com/terminal201467/YouBikeTest/blob/main/GIF/getJson.GIF)

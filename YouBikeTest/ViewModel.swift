@@ -21,6 +21,8 @@ class ViewModel: ObservableObject {
     
     var searchText: String = "" {
         didSet {
+            print("searchText:\(searchText)")
+            isSearchingModeRelay.accept(searchText == "" ? false : true)
             self.searchStationInfos(with: searchText)
         }
     }
@@ -36,20 +38,34 @@ class ViewModel: ObservableObject {
     
     private var originalStationInfos: [StationInfo] = []
     
-    private var filterStationsInfos: [String] = []
+    @Published var filterStationsInfos: [String] = []
     
-    @Published var storeStation: [StationInfo] = [] {
+    @Published var storeStation: [StationInfo] = []
+    
+    @Published var exsample: [String] = ["1","2","3","4","5"]
+    
+    @Published var storefilterStationInfo: [String] = [] {
         didSet {
-            print("storeStation:\(storeStation)")
+            print("storefilterStationInfo:\(storefilterStationInfo)")
         }
     }
     
-    @Published private var filterStationInfo: [String] = []
-    
     //MARK: -Events
+    let searchBehavior: PublishSubject<Void> = PublishSubject()
+    
+    @Published var isSearchingModeRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    
     private let youBikeDataSubject = PublishSubject<[StationInfo]>()
     
     private let youBikeStationDataSubject = PublishSubject<[String]>()
+    
+    init() {
+        searchBehavior.subscribe(onNext: {
+            print("Search!")
+        })
+        .disposed(by: disposeBag)
+        
+    }
     
     //MARK: -Subscribe
     var youBikeDataObservable: Observable<[StationInfo]> {
@@ -90,9 +106,9 @@ class ViewModel: ObservableObject {
             print("storeBikeStation是空的！")
             do {
                 try self.getBikeStationInfoRawData()
+                completion([])
             } catch {
                 print("Error getting bike station info: \(error)")
-                completion([])
                 return
             }
         } else {
@@ -113,19 +129,14 @@ class ViewModel: ObservableObject {
         if keyword.isEmpty {
             youBikeDataSubject.onNext(storeStation)
         } else {
-            let filteredStationInfos = storeStation.filter { $0.station.contains(keyword) }
-            print("filteredStationInfos:\(filteredStationInfos)")
-            youBikeDataSubject.onNext(filteredStationInfos)
-        }
-    }
-    
-    //搜尋站名
-    private func searchStation(with keyword: String) {
-        if keyword.isEmpty {
-            youBikeStationDataSubject.onNext(filterStationInfo)
-        } else {
-            let filteredStationInfos = storeStation.filter { $0.station.contains(keyword) }
-            youBikeStationDataSubject.onNext(filteredStationInfos.map{$0.station})
+            let storeStationArray = storeStation.map{$0.station}
+            print("storeStationString:\(storeStationArray)")
+            let filteredStationStrings = storeStationArray.filter { stationString in
+                stationString.localizedStandardContains(searchText)
+            }
+            print("filteredStationStrings:\(filteredStationStrings)")
+//            youBikeDataSubject.onNext(filteredStation)
+            storefilterStationInfo = filteredStationStrings
         }
     }
 }

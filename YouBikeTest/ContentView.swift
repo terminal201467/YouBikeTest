@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import RxSwift
+import RxRelay
 
 enum YouBikeColor: Int {
     case mainColor = 0, listGrayColor, listSelectedColor, searchPlaceHolderGray
@@ -30,7 +32,9 @@ struct ContentView: View {
     
     @State private var selectedCell: String? = nil
     
-    var menu: [String] = ["使用說明", "收費方式","站點資訊","最新消息","活動專區"]
+    @State private var selectedIndex: Int? = nil
+    
+    private var menu: [String] = ["使用說明", "收費方式","站點資訊","最新消息","活動專區"]
     
     var body: some View {
         GeometryReader { geometry in
@@ -52,61 +56,83 @@ struct ContentView: View {
                                 .background(Color(YouBikeColor.listGrayColor.color))
                                 .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
                                 .cornerRadius(8)
-                                .onTapGesture {
-                                    
-                                }
                             HStack {
                                 Spacer()
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
-                                    .onTapGesture {
-                                        print("Right View Tapped!")
-                                    }
+                                Button {
+                                    self.viewModel.searchBehavior.onNext(())
+                                } label: {
+                                    Image(systemName: "magnifyingglass")
+                                        .foregroundColor(Color(YouBikeColor.searchPlaceHolderGray.color))
+                                }
                             }.padding(.trailing)
                         }
-                        List {
-                            Section {
-                                Spacer()
-                                ForEach($viewModel.storeStation.indices, id: \.self) { index in
-                                    let info = $viewModel.storeStation[index]
-                                    ListContentView(city: info.city, area: info.area, station: info.station)
-                                        .listRowBackground(index % 2 == 0 ? Color.white : Color(YouBikeColor.listGrayColor.color))
-                                }
-                            } header: {
-                                GeometryReader { geometry in
-                                    HStack(spacing: geometry.size.width * 0.15) {
-                                        Text("縣市")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 16))
-                                            .fontWeight(.semibold)
-                                            .padding()
-                                        Text("區域")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 16))
-                                            .fontWeight(.semibold)
-                                            .padding()
-                                        Text("站點名稱")
-                                            .foregroundColor(.white)
-                                            .font(.system(size: 16))
-                                            .fontWeight(.semibold)
-                                            .padding()
+                        ZStack { GeometryReader { geography in
+                            List {
+                                Section {
+                                    Spacer()
+                                    ForEach(viewModel.storeStation.indices, id: \.self) { index in
+                                        let info = $viewModel.storeStation[index]
+                                        ListContentView(city: info.city, area: info.area, station: info.station)
+                                            .listRowBackground(index % 2 == 0 ? Color.white : Color(YouBikeColor.listGrayColor.color))
                                     }
-                                    .frame(width: geometry.size.width, height: 60)
-                                    .background(Color(YouBikeColor.mainColor.color))
-                                    .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                } header: {
+                                    GeometryReader { geometry in
+                                        HStack(spacing: geometry.size.width * 0.15) {
+                                            Text("縣市")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.semibold)
+                                                .padding()
+                                            Text("區域")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.semibold)
+                                                .padding()
+                                            Text("站點名稱")
+                                                .foregroundColor(.white)
+                                                .font(.system(size: 16))
+                                                .fontWeight(.semibold)
+                                                .padding()
+                                        }
+                                        .frame(width: geometry.size.width, height: 60)
+                                        .background(Color(YouBikeColor.mainColor.color))
+                                        .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                    }
                                 }
+                                .listRowInsets(EdgeInsets())
+                                .listRowSeparator(.hidden)
+                                .headerProminence(.increased)
+                                .background(Color(.white))
                             }
-                            .listRowInsets(EdgeInsets())
-                            .listRowSeparator(.hidden)
+                            .listStyle(.grouped)
+                            .cornerRadius(8)
+                            .backgroundStyle(Color.white)
                             .headerProminence(.increased)
-                            .background(Color(.white))
-                        }
-                        .listStyle(.grouped)
-                        .cornerRadius(8)
-                        .backgroundStyle(Color.white)
-                        .headerProminence(.increased)
-                        .onAppear {
-                            viewModel.getBikeStationInfoRawData()
+                            .onAppear {
+                                viewModel.getBikeStationInfoRawData()
+                            }
+                            List($viewModel.storefilterStationInfo.indices, id: \.self) { index in
+                                let info = $viewModel.storefilterStationInfo[index]
+                                SearchListContent(placeName: info)
+                                    .onTapGesture {
+                                        
+                                    }
+                                    .foregroundColor(Color(YouBikeColor.mainColor.color))
+                                    .listRowBackground(Color(YouBikeColor.listGrayColor.color))
+                                    .listRowSeparator(.hidden)
+                            }
+                            .scrollContentBackground(.hidden)
+                            .scrollIndicators(.hidden)
+                            .listStyle(.grouped)
+                            .cornerRadius(8)
+                            .backgroundStyle(Color.clear)
+                            .opacity(viewModel.isSearchingModeRelay.value ? 1.0 : 0.0)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(Color.clear)
+                            .listSectionSeparator(.hidden)
+                            .listRowInsets(EdgeInsets())
+                            .frame(height: geometry.size.height * 0.5)
+                            }
                         }
                     }
                 }
@@ -139,8 +165,8 @@ struct ContentView: View {
                                         .background(.white)
                                         .cornerRadius(100)
                                 }
-                                .frame(width: 80)
-                                .padding(.init(top: 16, leading: 32, bottom: 16, trailing: 16))
+                                .frame(width: 80, height: 40)
+                                .padding(.init(top: 8, leading: 32, bottom: 8, trailing: 16))
                                 Spacer()
                                 Spacer()
                             }
@@ -151,9 +177,8 @@ struct ContentView: View {
                         .listRowInsets(EdgeInsets())
                         .listRowSeparator(.hidden)
                         .listRowBackground(Color(YouBikeColor.mainColor.color))
-                        .frame(height: 70)
+                        .frame(height: 80)
                     }
-                    
                     .listStyle(.plain)
                     .opacity(isMenuOn ? 1.0 : 0.0)
                 }

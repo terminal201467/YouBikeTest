@@ -22,7 +22,7 @@ class ViewModel: ObservableObject {
     var searchText: String = "" {
         didSet {
             print("searchText:\(searchText)")
-            isSearchingModeRelay.accept(searchText == "" ? false : true)
+            isSearchingModeRelay.accept(searchText.isEmpty ? false : true)
             self.searchStationInfos(with: searchText)
         }
     }
@@ -62,6 +62,8 @@ class ViewModel: ObservableObject {
     init() {
         searchBehavior.subscribe(onNext: {
             print("Search!")
+            self.storefilterStationInfo.removeAll()
+            self.isSearchingModeRelay.accept(false)
         })
         .disposed(by: disposeBag)
         
@@ -130,7 +132,6 @@ class ViewModel: ObservableObject {
             youBikeDataSubject.onNext(storeStation)
         } else {
             let storeStationArray = storeStation.map{$0.station}
-            print("storeStationString:\(storeStationArray)")
             let filteredStationStrings = storeStationArray.filter { stationString in
                 stationString.localizedStandardContains(searchText)
             }

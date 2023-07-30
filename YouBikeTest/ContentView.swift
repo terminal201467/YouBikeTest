@@ -26,6 +26,8 @@ enum YouBikeColor: Int {
 
 struct ContentView: View {
     
+    private let disposeBag = DisposeBag()
+    
     @ObservedObject var viewModel = ViewModel()
     
     @State private var isMenuOn: Bool = false
@@ -68,7 +70,7 @@ struct ContentView: View {
                         }
                         ZStack { GeometryReader { geography in
                             List {
-                                Section {
+                                Section(){
                                     Spacer()
                                     ForEach(viewModel.storeStation.indices, id: \.self) { index in
                                         let info = $viewModel.storeStation[index]
@@ -111,19 +113,26 @@ struct ContentView: View {
                             .onAppear {
                                 viewModel.getBikeStationInfoRawData()
                             }
-                            List($viewModel.storefilterStationInfo.indices, id: \.self) { index in
-                                let info = $viewModel.storefilterStationInfo[index]
-                                SearchListContent(placeName: info)
-                                    .onTapGesture {
-                                        
+                            List{
+                                ForEach($viewModel.storefilterStationInfo.indices, id: \.self) { index in
+                                    let info = viewModel.storefilterStationInfo[index]
+                                    HStack {
+                                        Text("\(info)")
+                                            .padding(.leading)
+                                            .foregroundColor(selectedIndex == index ? Color(YouBikeColor.mainColor.color) : .black)
+                                        Spacer()
                                     }
-                                    .foregroundColor(Color(YouBikeColor.mainColor.color))
                                     .listRowBackground(Color(YouBikeColor.listGrayColor.color))
-                                    .listRowSeparator(.hidden)
+                                    .onTapGesture {
+                                        selectedIndex = index
+                                        viewModel.searchText = info
+                                        self.viewModel.searchBehavior.onNext(())
+                                    }
+                                }
                             }
                             .scrollContentBackground(.hidden)
                             .scrollIndicators(.hidden)
-                            .listStyle(.grouped)
+                            .listStyle(.plain)
                             .cornerRadius(8)
                             .backgroundStyle(Color.clear)
                             .opacity(viewModel.isSearchingModeRelay.value ? 1.0 : 0.0)

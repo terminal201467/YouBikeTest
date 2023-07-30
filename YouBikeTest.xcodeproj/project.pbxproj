@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9776863B2A73A340004ED791 /* SearchListContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9776863A2A73A33F004ED791 /* SearchListContent.swift */; };
 		97977C632A6BAC1F00BC89E0 /* ListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C622A6BAC1F00BC89E0 /* ListContentView.swift */; };
 		97977C652A6BACAB00BC89E0 /* BikeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C642A6BACAB00BC89E0 /* BikeStation.swift */; };
 		97977C672A6BC2D400BC89E0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C662A6BC2D400BC89E0 /* ViewModel.swift */; };
@@ -44,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9776863A2A73A33F004ED791 /* SearchListContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListContent.swift; sourceTree = "<group>"; };
 		97977C622A6BAC1F00BC89E0 /* ListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentView.swift; sourceTree = "<group>"; };
 		97977C642A6BACAB00BC89E0 /* BikeStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStation.swift; sourceTree = "<group>"; };
 		97977C662A6BC2D400BC89E0 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 			children = (
 				97FD07282A6AD49A00A64808 /* YouBikeTestApp.swift */,
 				97FD072A2A6AD49B00A64808 /* ContentView.swift */,
-				9776863A2A73A33F004ED791 /* SearchListContent.swift */,
 				97977C642A6BACAB00BC89E0 /* BikeStation.swift */,
 				97FD07712A6B688000A64808 /* UIColor.swift */,
 				97977C622A6BAC1F00BC89E0 /* ListContentView.swift */,
@@ -308,7 +305,6 @@
 				97977C632A6BAC1F00BC89E0 /* ListContentView.swift in Sources */,
 				97977C672A6BC2D400BC89E0 /* ViewModel.swift in Sources */,
 				97FD07292A6AD49A00A64808 /* YouBikeTestApp.swift in Sources */,
-				9776863B2A73A340004ED791 /* SearchListContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

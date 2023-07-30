@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9787A0A22A7677930006D151 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 9787A0A12A7677930006D151 /* RxCocoa */; };
+		9787A0A42A7677980006D151 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9787A0A32A7677980006D151 /* RxSwift */; };
+		9787A0A62A76779E0006D151 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 9787A0A52A76779E0006D151 /* RxRelay */; };
+		9787A0A82A7677A20006D151 /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 9787A0A72A7677A20006D151 /* RxTest */; };
+		9787A0AA2A7677CF0006D151 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9787A0A92A7677CF0006D151 /* Alamofire */; };
+		9787A0B12A7679DF0006D151 /* YouBikeTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07432A6AD49D00A64808 /* YouBikeTestUITests.swift */; };
+		9787A0B32A767D8F0006D151 /* BikeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C642A6BACAB00BC89E0 /* BikeStation.swift */; };
+		9787A0B42A767E600006D151 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C662A6BC2D400BC89E0 /* ViewModel.swift */; };
+		9787A0B52A767E640006D151 /* AlamoFireInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C682A6E030000BC89E0 /* AlamoFireInterface.swift */; };
+		9787A0B62A767F2A0006D151 /* YouBikeTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07392A6AD49D00A64808 /* YouBikeTestTests.swift */; };
 		97977C632A6BAC1F00BC89E0 /* ListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C622A6BAC1F00BC89E0 /* ListContentView.swift */; };
 		97977C652A6BACAB00BC89E0 /* BikeStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C642A6BACAB00BC89E0 /* BikeStation.swift */; };
 		97977C672A6BC2D400BC89E0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97977C662A6BC2D400BC89E0 /* ViewModel.swift */; };
@@ -15,7 +25,6 @@
 		97FD072B2A6AD49B00A64808 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD072A2A6AD49B00A64808 /* ContentView.swift */; };
 		97FD072D2A6AD49C00A64808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FD072C2A6AD49C00A64808 /* Assets.xcassets */; };
 		97FD07302A6AD49C00A64808 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97FD072F2A6AD49C00A64808 /* Preview Assets.xcassets */; };
-		97FD073A2A6AD49D00A64808 /* YouBikeTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07392A6AD49D00A64808 /* YouBikeTestTests.swift */; };
 		97FD07442A6AD49D00A64808 /* YouBikeTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07432A6AD49D00A64808 /* YouBikeTestUITests.swift */; };
 		97FD07462A6AD49D00A64808 /* YouBikeTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FD07452A6AD49D00A64808 /* YouBikeTestUITestsLaunchTests.swift */; };
 		97FD07692A6B5E3E00A64808 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97FD07682A6B5E3E00A64808 /* RxSwift */; };
@@ -41,6 +50,19 @@
 			remoteInfo = YouBikeTest;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9787A09D2A7676E00006D151 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		97977C622A6BAC1F00BC89E0 /* ListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListContentView.swift; sourceTree = "<group>"; };
@@ -76,6 +98,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9787A0AA2A7677CF0006D151 /* Alamofire in Frameworks */,
+				9787A0A82A7677A20006D151 /* RxTest in Frameworks */,
+				9787A0A62A76779E0006D151 /* RxRelay in Frameworks */,
+				9787A0A42A7677980006D151 /* RxSwift in Frameworks */,
+				9787A0A22A7677930006D151 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +195,7 @@
 				97FD07212A6AD49A00A64808 /* Sources */,
 				97FD07222A6AD49A00A64808 /* Frameworks */,
 				97FD07232A6AD49A00A64808 /* Resources */,
+				9787A09D2A7676E00006D151 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,6 +226,13 @@
 				97FD07372A6AD49D00A64808 /* PBXTargetDependency */,
 			);
 			name = YouBikeTestTests;
+			packageProductDependencies = (
+				9787A0A12A7677930006D151 /* RxCocoa */,
+				9787A0A32A7677980006D151 /* RxSwift */,
+				9787A0A52A76779E0006D151 /* RxRelay */,
+				9787A0A72A7677A20006D151 /* RxTest */,
+				9787A0A92A7677CF0006D151 /* Alamofire */,
+			);
 			productName = YouBikeTestTests;
 			productReference = 97FD07352A6AD49D00A64808 /* YouBikeTestTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -312,7 +347,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97FD073A2A6AD49D00A64808 /* YouBikeTestTests.swift in Sources */,
+				9787A0B62A767F2A0006D151 /* YouBikeTestTests.swift in Sources */,
+				9787A0B52A767E640006D151 /* AlamoFireInterface.swift in Sources */,
+				9787A0B42A767E600006D151 /* ViewModel.swift in Sources */,
+				9787A0B32A767D8F0006D151 /* BikeStation.swift in Sources */,
+				9787A0B12A7679DF0006D151 /* YouBikeTestUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,6 +689,31 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9787A0A12A7677930006D151 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		9787A0A32A7677980006D151 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		9787A0A52A76779E0006D151 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		9787A0A72A7677A20006D151 /* RxTest */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxTest;
+		};
+		9787A0A92A7677CF0006D151 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 97FD076E2A6B5E7F00A64808 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
 		97FD07682A6B5E3E00A64808 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 97FD07522A6AD61900A64808 /* XCRemoteSwiftPackageReference "RxSwift" */;

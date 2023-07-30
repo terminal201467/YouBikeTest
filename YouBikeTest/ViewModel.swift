@@ -62,6 +62,7 @@ class ViewModel: ObservableObject {
     init() {
         searchBehavior.subscribe(onNext: {
             print("Search!")
+            self.certainFilterStationInfos(with: self.searchText)
             self.storefilterStationInfo.removeAll()
             self.isSearchingModeRelay.accept(false)
         })
@@ -89,7 +90,6 @@ class ViewModel: ObservableObject {
             }
             
             if let city = placemark.subAdministrativeArea {
-                print("City: \(city)")
                 completion(city)
             } else {
                 print("City not found.")
@@ -136,8 +136,20 @@ class ViewModel: ObservableObject {
                 stationString.localizedStandardContains(searchText)
             }
             print("filteredStationStrings:\(filteredStationStrings)")
-//            youBikeDataSubject.onNext(filteredStation)
             storefilterStationInfo = filteredStationStrings
+        }
+    }
+    
+    private func certainFilterStationInfos(with keyword: String) {
+        if keyword.isEmpty {
+            youBikeDataSubject.onNext(storeStation)
+        } else {
+            let stores = storeStation.map {$0}
+            let filteredStation = stores.filter { stationInfo in
+                stationInfo.station.localizedStandardContains(searchText)
+            }
+            print("filteredStation:\(filteredStation)")
+            self.storeStation = filteredStation
         }
     }
 }

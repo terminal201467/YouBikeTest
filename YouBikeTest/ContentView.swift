@@ -104,7 +104,6 @@ struct ContentView: View {
                                 .listRowInsets(EdgeInsets())
                                 .listRowSeparator(.hidden)
                                 .headerProminence(.increased)
-                                .background(Color(.white))
                             }
                             .listStyle(.grouped)
                             .cornerRadius(8)
